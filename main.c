@@ -87,7 +87,7 @@ void printCard(struct Card card){
     char *rank;
 
     // Switch case handles face cards and ace
-    // Default 
+    // Default to handle numerical cards, turns int to string
     switch(card.number){
         case 1: 
             rank = "A";
