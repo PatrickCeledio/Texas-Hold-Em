@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Card structure
 struct Card {
@@ -123,9 +124,40 @@ void printDeck(){
     printf("\n");
 }
 
+void shuffleDeck(){
+    // Loop backwards and moves a random card into position i until 1 card left
+    // Once completed, that deck becomes the shuffled deck
+    for (int i = 51; i>0; i--){
+        int j = rand() % (i + 1);
+
+        struct Card shuffled = deck[i];
+        deck[i] = deck[j];
+        deck[j] = shuffled;
+    }
+}
+
 int viewCardDeck(){
     printf("Viewing Deck: Current Order\n");
     printDeck();
+
+    // Prompt to shuffle deck
+    while(1){
+        printf("Shuffle the deck? Y or N\n");
+        char choice;
+        scanf(" %c", &choice);
+
+        if (choice == 'y' || choice == 'Y'){
+            shuffleDeck();
+            printf("Shuffle completed.\n");
+            printDeck();
+        } else if (choice == 'n' || choice == 'N'){
+            printf("Returning to menu.\n");
+            break;
+        } else {
+            printf("Invalid input. Please enter Y or N.\n");
+        }
+    }// end While
+
     return 0;
 }
 void viewCredits(){
@@ -158,7 +190,8 @@ int menu(){
 }
 
 int main(int arg, char* argv[]){
-
+    // Init psuedo RNG with unique starting point everytime main runs
+    srand((unsigned) time(NULL));
     int menuLoop = -1;
     int menuChoice = 0;
     while(menuLoop){
