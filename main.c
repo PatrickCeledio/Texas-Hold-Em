@@ -79,18 +79,61 @@ int menuChoice(){
 }
 
 int viewAvailableTables(){
-    printf("Viewing Available Tables");
+    printf("Viewing Available Tables\n");
     return 0;
 }
 
+void printCard(struct Card card){
+    char *rank;
+
+    // Switch case handles face cards and ace
+    // Default 
+    switch(card.number){
+        case 1: 
+            rank = "A";
+            break;
+        case 11:
+            rank = "J";
+            break;       
+        case 12:
+            rank = "Q";
+            break;        
+        case 13:
+            rank = "K";
+            break;    
+        default: {
+            static char buffer[3];
+            snprintf(buffer, sizeof(buffer), "%d", card.number);
+            rank = buffer;
+        }
+    }
+    
+    // This prints the card value and suit e.g. AH, 2P, 3C, 4D etc
+    printf("%s%c ", rank, card.suit);
+}
+
+void printDeck(){
+    
+    for (int i = 0; i<52; i++){
+        printCard(deck[i]);
+
+        if ((i + 1) % 13 == 0);
+            printf("\n");
+    }
+    printf("\n");
+}
+
 int viewCardDeck(){
-    printf("Viewing Deck");
-    int deck = [52];
+    printf("Viewing Deck: Current Order\n");
+    printDeck();
     return 0;
 }
 void viewCredits(){
+    printf("*****************************************\n");
     printf("Texas Hold 'Em in C Programming Language\n");
     printf("Attempted by Patrick Celedio\n");
+    printf("*****************************************\n");
+    
 }
 void exitGame(){
     printf("Player chose to exit game.\n");
@@ -136,6 +179,7 @@ int main(int arg, char* argv[]){
             break;
         case 4:
             printf("Player chose: %d\n", menuChoice);
+            printf("Goodbye!\n");
             exitGame();
             break;    
         default:
