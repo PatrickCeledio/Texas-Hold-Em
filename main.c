@@ -9,7 +9,6 @@
 // Card structure
 struct Card {
     // A = 1; J = 11; Q = 12; K = 13;
-    // Ace card will be programmed to also represent 11, so its value is either 1 or 11
     int id;
     int number;
     char suit;
@@ -81,13 +80,18 @@ int menuChoice(){
 
 int viewAvailableTables(){
     printf("Viewing Available Tables\n");
+    printf("1. 1 person present at table.\n");
+    printf("2. 2 people present at table.\n");
+    printf("3. 3 people present at table.\n");
+    printf("Please enter your choice: ");
+
     return 0;
 }
 
 void printCard(struct Card card){
     char *rank;
 
-    // Switch case handles face cards and ace
+    // Switch case translates value to A, K, Q, J
     // Default to handle numerical cards, turns int to string
     switch(card.number){
         case 1: 
@@ -118,7 +122,7 @@ void printDeck(){
     for (int i = 0; i<52; i++){
         printCard(deck[i]);
 
-        if ((i + 1) % 13 == 0);
+        if ((i + 1) % 13 == 0)
             printf("\n");
     }
     printf("\n");
@@ -173,7 +177,7 @@ void exitGame(){
 }
 
 int menu(){
-    printf("=====================================\n");
+    printf("\n=====================================\n");
     printf("= Texas Hold 'Em by Patrick Celedio =\n");
     printf("= Please enter a number to navigate =\n");
     printf("=====================================\n\n");
